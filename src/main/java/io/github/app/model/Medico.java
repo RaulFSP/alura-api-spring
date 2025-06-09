@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -45,5 +46,18 @@ public class Medico {
 		this.telefone=medico.telefone();
 		this.especialidade = medico.especialidade();
 		this.endereco = new Endereco(medico.endereco());
+	}
+
+	public void updateInfo(@Valid MedicoDTOUpdate medicoDTO) {
+		if(medicoDTO.nome() != null) {
+			this.nome=medicoDTO.nome();			
+		}
+		if (medicoDTO.telefone() != null) {
+			this.telefone=medicoDTO.telefone();			
+		}
+		if (medicoDTO.endereco() != null) {
+			this.endereco.updateInfo(medicoDTO.endereco());
+		}
+		
 	}
 }

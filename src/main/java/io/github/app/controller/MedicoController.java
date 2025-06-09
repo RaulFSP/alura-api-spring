@@ -1,10 +1,14 @@
 package io.github.app.controller;
 
-import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.github.app.model.Medico;
 import io.github.app.model.MedicoDTOCadastro;
 import io.github.app.model.MedicoDTORead;
+import io.github.app.model.MedicoDTOUpdate;
 import io.github.app.repository.MedicoRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -24,8 +29,8 @@ public class MedicoController {
 	private MedicoRepository medicoRepository;
 	
 	@GetMapping
-	public List<MedicoDTORead> getMedicos() {
-		return medicoRepository.findAll().stream().map(MedicoDTORead::new).toList();
+	public Page<MedicoDTORead> getMedicos(@PageableDefault(size = 5, sort= {"nome"}) Pageable page) {
+		return medicoRepository.findAll(page).map(MedicoDTORead::new);
 	}
 	
 	@PostMapping
@@ -34,5 +39,13 @@ public class MedicoController {
 		Medico medico = new Medico(medicoDTO);
 		return medicoRepository.save(medico);
 		
+	}
+	
+	@PutMapping
+	@Transactional
+	public MedicoDTOUpdate putMedico(@RequestBody @Valid MedicoDTOUpdate medicoDTO) {
+		Medico medico = medicoRepository.getReferenceById(medicoDTO.id());
+		medico.updateInfo(medicoDTO);
+		return medicoDTO;
 	}
 }

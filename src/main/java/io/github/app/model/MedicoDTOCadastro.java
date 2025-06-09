@@ -19,6 +19,7 @@ public record MedicoDTOCadastro(
 		@Email
 		String email,
 		@NotBlank
+		@Pattern(regexp = "\\d{10,11}")
 		String telefone,
 		@JsonAlias({"crm","Crm","CRM"})
 		@NotBlank
