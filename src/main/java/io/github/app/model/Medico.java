@@ -34,12 +34,14 @@ public class Medico {
 	private String email;
 	private String telefone;
 	private String crm;
+	private boolean ativo;
 	@Enumerated(EnumType.STRING)
 	private Especialidade especialidade;
 	@Embedded
 	private Endereco endereco;
 
 	public Medico(MedicoDTOCadastro medico) {
+		this.ativo=true;
 		this.nome = medico.nome();
 		this.email = medico.email();
 		this.crm = medico.crm();
@@ -60,4 +62,8 @@ public class Medico {
 		}
 		
 	}
+
+    public void inativar() {
+        if (this.ativo) this.ativo=false;
+    }
 }
