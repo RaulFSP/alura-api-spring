@@ -34,11 +34,23 @@ public class Paciente {
 	@Embedded
 	private Endereco endereco;
 
-	public Paciente(PacienteDTOCadastro cadastro) {
+	public Paciente(PacienteDTOCreate cadastro) {
 		this.nome = cadastro.nome();
 		this.email = cadastro.email();
 		this.cpf = cadastro.cpf();
 		this.telefone = cadastro.telefone();
 		this.endereco = new Endereco(cadastro.endereco());
+	}
+
+	public void updateInfo(PacienteDTOUpdate pacienteUpdate) {
+		if(pacienteUpdate.nome() != null && !pacienteUpdate.nome().isBlank()) {
+			this.nome=pacienteUpdate.nome();
+		}
+		if(pacienteUpdate.telefone() != null) {
+			this.telefone = pacienteUpdate.telefone();
+		}
+		if(pacienteUpdate.endereco() != null) {
+			this.endereco.updateInfo(pacienteUpdate.endereco());
+		}
 	}
 }

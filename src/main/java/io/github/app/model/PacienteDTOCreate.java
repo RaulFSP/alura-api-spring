@@ -6,7 +6,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
-public record PacienteDTOCadastro(
+public record PacienteDTOCreate(
+		
 		@NotBlank
 		String nome,
 		@NotBlank
@@ -20,6 +21,7 @@ public record PacienteDTOCadastro(
 		@NotNull
 		@Valid
 		EnderecoDTOCadastro endereco
-) {
+		
+		) {
 
 }
