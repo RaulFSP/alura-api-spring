@@ -1,4 +1,4 @@
-package io.github.app.model;
+package io.github.app.model.endereco;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;

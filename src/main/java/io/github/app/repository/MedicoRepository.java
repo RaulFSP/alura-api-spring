@@ -4,8 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-
-import io.github.app.model.Medico;
+import io.github.app.model.medico.Medico;
 
 public interface MedicoRepository extends JpaRepository<Medico, Long> {
     

@@ -1,4 +1,4 @@
-package io.github.app.model;
+package io.github.app.model.paciente;
 
 public record PacienteDTORead(
 		Long id,

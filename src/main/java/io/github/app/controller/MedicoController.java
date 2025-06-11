@@ -14,10 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
-import io.github.app.model.Medico;
-import io.github.app.model.MedicoDTOCadastro;
-import io.github.app.model.MedicoDTORead;
-import io.github.app.model.MedicoDTOUpdate;
+
+import io.github.app.model.medico.Medico;
+import io.github.app.model.medico.MedicoDTOCadastro;
+import io.github.app.model.medico.MedicoDTORead;
+import io.github.app.model.medico.MedicoDTOUpdate;
 import io.github.app.repository.MedicoRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;

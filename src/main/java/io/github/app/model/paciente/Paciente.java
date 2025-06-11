@@ -1,5 +1,6 @@
-package io.github.app.model;
+package io.github.app.model.paciente;
 
+import io.github.app.model.endereco.Endereco;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

@@ -1,7 +1,8 @@
-package io.github.app.model;
+package io.github.app.model.medico;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 
+import io.github.app.model.endereco.EnderecoDTOCadastro;
 import io.github.app.model.enums.Especialidade;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;

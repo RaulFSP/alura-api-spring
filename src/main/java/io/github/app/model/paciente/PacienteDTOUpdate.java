@@ -1,5 +1,6 @@
-package io.github.app.model;
+package io.github.app.model.paciente;
 
+import io.github.app.model.endereco.EnderecoDTOUpdate;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;

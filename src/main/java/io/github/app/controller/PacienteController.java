@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
  * @author laptop
  */
 
-import io.github.app.model.Paciente;
-import io.github.app.model.PacienteDTOCreate;
-import io.github.app.model.PacienteDTORead;
-import io.github.app.model.PacienteDTOUpdate;
+import io.github.app.model.paciente.Paciente;
+import io.github.app.model.paciente.PacienteDTOCreate;
+import io.github.app.model.paciente.PacienteDTORead;
+import io.github.app.model.paciente.PacienteDTOUpdate;
 import io.github.app.repository.PacienteRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;

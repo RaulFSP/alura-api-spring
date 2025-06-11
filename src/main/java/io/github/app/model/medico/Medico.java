@@ -1,5 +1,6 @@
-package io.github.app.model;
+package io.github.app.model.medico;
 
+import io.github.app.model.endereco.Endereco;
 import io.github.app.model.enums.Especialidade;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
