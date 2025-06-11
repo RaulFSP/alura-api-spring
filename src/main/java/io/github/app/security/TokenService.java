@@ -10,13 +10,14 @@ import org.springframework.stereotype.Service;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 
 import io.github.app.model.user.Usuario;
 
 @Service
 public class TokenService {
 
-	@Value("{api.security.token.xpto}")
+	@Value("${api.security.token.xpto}")
 	private String XPTO;
 	
 	public String generateToken(Usuario usuario) {
@@ -34,7 +35,24 @@ public class TokenService {
 		}
 	}
 	
+	public String getSubject(String tokenJWT) {	
+		
+
+		try {
+		    Algorithm algorithm = Algorithm.HMAC256(XPTO);
+		    return JWT
+		    		.require(algorithm)
+		    		.withIssuer("Api Voll.med")
+		    		.build()
+		    		.verify(tokenJWT)
+		        .getSubject();
+		    
+		} catch (JWTVerificationException exception){
+			throw new RuntimeException("Token expirado",exception);
+		} 
+	}
+	
 	private Instant expires(){
-		return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
+		return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-04:00"));
 	}
 }
