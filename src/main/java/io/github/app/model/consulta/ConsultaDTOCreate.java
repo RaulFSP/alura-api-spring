@@ -6,6 +6,7 @@ package io.github.app.model.consulta;
 
 import java.time.LocalDateTime;
 
+import io.github.app.model.enums.Especialidade;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
 
@@ -20,7 +21,8 @@ public record ConsultaDTOCreate(
         Long idPaciente,
         @NotNull
         @Future
-        LocalDateTime data
+        LocalDateTime data,
+        Especialidade especialidade
         ) {
 
 }

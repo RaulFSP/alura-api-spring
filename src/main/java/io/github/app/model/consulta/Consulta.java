@@ -6,9 +6,13 @@ package io.github.app.model.consulta;
 
 import java.time.LocalDateTime;
 
+import io.github.app.model.enums.MotivoCancelamento;
 import io.github.app.model.medico.Medico;
 import io.github.app.model.paciente.Paciente;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -39,12 +43,22 @@ public class Consulta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_medico")
+    @JoinColumn(name = "medico_id")
     private Medico medico;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_paciente")
+    @JoinColumn(name = "paciente_id")
     private Paciente paciente;
     private LocalDateTime data;
+    @Column(name = "motivo_cancelamento")
+    @Enumerated(EnumType.STRING)
+    private MotivoCancelamento motivoCancelamento;
+    
+    
+    
+	public void cancelar( MotivoCancelamento motivoCancelamento) {
+		this.motivoCancelamento = motivoCancelamento;
+		
+	}
 
     
 }

@@ -32,10 +32,12 @@ public class Paciente {
 	private String email;
 	private String cpf;
 	private String telefone;
+	private boolean ativo;
 	@Embedded
 	private Endereco endereco;
 
 	public Paciente(PacienteDTOCreate cadastro) {
+		this.ativo = true;
 		this.nome = cadastro.nome();
 		this.email = cadastro.email();
 		this.cpf = cadastro.cpf();
