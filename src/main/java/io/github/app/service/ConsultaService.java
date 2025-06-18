@@ -15,6 +15,7 @@ import io.github.app.model.consulta.Consulta;
 import io.github.app.model.consulta.ConsultaDTOCreate;
 import io.github.app.model.consulta.ConsultaDTODelete;
 import io.github.app.model.consulta.ConsultaDTORead;
+import io.github.app.model.consulta.cancelamento.CancelarAgendamentoConsulta;
 import io.github.app.model.medico.Medico;
 import io.github.app.repository.ConsultaRepository;
 import io.github.app.repository.MedicoRepository;
@@ -40,6 +41,9 @@ public class ConsultaService {
 	
 	@Autowired
 	private List<ValidadorDeAgendamentoDeConsulta> validadores;
+	
+	@Autowired
+	private List<CancelarAgendamentoConsulta> validadoresCancelamento;
 
 	public ConsultaDTORead agendar(ConsultaDTOCreate consultaCreate) {
 		
@@ -53,10 +57,8 @@ public class ConsultaService {
 		validadores.forEach(v->v.validar(consultaCreate));
 		
 		var medico = escolheMedico(consultaCreate);
-		
 		var paciente = pacienterepository.getReferenceById(consultaCreate.idPaciente());
 		var consulta = new Consulta(null, medico, paciente, consultaCreate.data(), null);
-		
 		var c = consultaRepository.save(consulta);
 		
 		return new ConsultaDTORead(consultaRepository.findByIdComEntidades(c.getId()));
@@ -76,6 +78,7 @@ public class ConsultaService {
 		if(!consultaRepository.existsById(consultaDeletar.id())) {
 			throw new ValidacaoException("Consulta não encontrada!");
 		}
+		validadoresCancelamento.forEach(f->f.validar(consultaDeletar));
 		var consulta = consultaRepository.getReferenceById(consultaDeletar.id());
 		consulta.cancelar(consultaDeletar.motivoCancelamento());
 	}

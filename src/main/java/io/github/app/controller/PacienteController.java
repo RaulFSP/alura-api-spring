@@ -23,6 +23,7 @@ import io.github.app.model.paciente.PacienteDTOCreate;
 import io.github.app.model.paciente.PacienteDTORead;
 import io.github.app.model.paciente.PacienteDTOUpdate;
 import io.github.app.repository.PacienteRepository;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
@@ -33,18 +34,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/pacientes")
+@SecurityRequirement(name = "bearer-key")
 public class PacienteController {
 
 	@Autowired
 	private PacienteRepository pacienteRepository;
 
 	@GetMapping()
+	 
 	public Page<PacienteDTORead> getPaciente(@PageableDefault(size = 8) Pageable page) {
 		return pacienteRepository.findAll(page).map(PacienteDTORead::new);
 	}
 
 	@PostMapping
 	@Transactional
+	 
 	public PacienteDTORead postPaciente(@RequestBody @Valid PacienteDTOCreate pacienteDTO) {
 		Paciente paciente = new Paciente(pacienteDTO);
 		PacienteDTORead pacienteRead = new PacienteDTORead(pacienteRepository.save(paciente));
@@ -53,6 +57,7 @@ public class PacienteController {
 
 	@PostMapping("/list")
 	@Transactional
+	 
 	public List<PacienteDTORead> postPacienteList(@RequestBody @Valid List<PacienteDTOCreate> listPacienteCreate) {
 		List<PacienteDTORead> listPacienteread = listPacienteCreate.stream()
 				.map(m -> new PacienteDTORead(pacienteRepository.save(new Paciente(m)))).toList();
@@ -61,6 +66,7 @@ public class PacienteController {
 	
 	@PutMapping
 	@Transactional
+	 
 	public PacienteDTOUpdate putPaciente(@RequestBody @Valid PacienteDTOUpdate pacienteUpdate) {
 		Paciente paciente = pacienteRepository.getReferenceById(pacienteUpdate.id());
 		paciente.updateInfo(pacienteUpdate);

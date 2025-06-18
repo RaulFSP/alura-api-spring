@@ -17,6 +17,7 @@ import io.github.app.model.consulta.ConsultaDTOCreate;
 import io.github.app.model.consulta.ConsultaDTODelete;
 import io.github.app.model.consulta.ConsultaDTORead;
 import io.github.app.service.ConsultaService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
@@ -27,6 +28,7 @@ import jakarta.validation.Valid;
  */
 @RestController
 @RequestMapping("/consultas")
+@SecurityRequirement(name = "bearer-key")
 public class ConsultaController {
 
     

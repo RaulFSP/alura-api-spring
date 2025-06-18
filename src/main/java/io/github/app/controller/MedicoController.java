@@ -20,18 +20,20 @@ import io.github.app.model.medico.MedicoDTOCadastro;
 import io.github.app.model.medico.MedicoDTORead;
 import io.github.app.model.medico.MedicoDTOUpdate;
 import io.github.app.repository.MedicoRepository;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/medicos")
+@SecurityRequirement(name = "bearer-key")
 public class MedicoController {
 
 	@Autowired
 	private MedicoRepository medicoRepository;
 
 	@GetMapping
-	public ResponseEntity<Page<MedicoDTORead>> getMedicos(@PageableDefault(size = 8, sort = { "nome" }) Pageable page) {
+	public ResponseEntity<Page<MedicoDTORead>> getMedicos(@PageableDefault(sort = { "id" }) Pageable page) {
 		Page<MedicoDTORead> p = medicoRepository.findAllByAtivoTrue(page).map(MedicoDTORead::new);
 		return ResponseEntity.ok(p);
 	}
